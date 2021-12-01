@@ -1,0 +1,151 @@
+.covid a{ 
+    font-weight: bold;
+    font-style: sans serif;
+    text-decoration: none;
+    color: green;
+}
+.navbar{
+    background-color: rgb(238, 230, 230);
+}
+.nav-item{
+    float: right;
+}
+.NAV  a:hover{
+    background-color: rgba(10, 10, 241, 0.5);
+}
+.image{
+    font-family: sans-serif;
+    font-size: large;
+}
+.content p{
+    font-size:x-large;
+}
+.row .ovl{
+    opacity: 0;
+    transition: 0.75s;
+}
+.row .ovl:hover{
+    opacity: 1;
+    background-color: rgba(0,0,0,0.66)
+}
+.card .card-img{
+    width: 100%;
+    height: 25vw;
+    object-fit: cover;
+}
+.ovl{
+    opacity: 0;
+    transition: 0.75s;
+}
+.ovl:hover{
+    opacity: 1;
+    background-color: rgba(0,0,0,0.66)
+}
+.box{
+    margin: 10px;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+.bg-img{
+    height: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.img1{ 
+    background-image:
+    url("sample image/image.jpeg ");
+}
+.bg-text{
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+    
+    top: 50%;
+    left: 50%;
+    transform: translate(50%, 50%);
+    z-index: 2;
+    width: 300px;
+    padding: 20px;
+    text-align: left;
+}
+table{
+    width: 50%;
+    font-size: larger;
+    margin-top: 20px;
+    margin-left: 50px;
+    margin: 350px;
+    background-color: blue;
+}
+.excellence{
+    font-size: x-large;
+}
+nav{
+    flex: inline;
+}
+nav ion-icon{
+    font-size: x-large;
+    color: green;
+}
+#myBtn {
+    font-weight: bold;
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color:rgba(0, 0, 247, 0.8); /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 10px; /* Some padding */
+    border-radius: 1px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+  }
+  
+  #myBtn:hover {
+    background-color:blue; /* Add a dark-grey background on hover */
+  }
+  .sticky-container{
+      tab: index 0;
+    margin-bottom: calc(100vh - 100vh);
+    border-radius: 0 0 0.5rem 0.5rem;
+    transform-origin: top right;
+    transform: rotate(90deg);
+      background-color: blue;
+      /*box-shadow: gray -1px 1px;
+      padding-top: 50px;
+      padding-left: 50px;
+      padding-bottom: 50px;
+      padding-right: 3px;*/
+      position: fixed;
+      top:56%;
+      right: 0px;
+      width: 0px;
+      height: auto;
+      /*z-index: 9999;*/
+      margin-top: -24px;
+      text-align: center;
+    }
+    .sticky-container a{
+         padding: 0 !important;
+        display: block;
+        text-align: center;
+        height: 30px;
+        width: 200px;
+        padding: 20px 30px;
+        color: #fff;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 17px;
+        font-weight: bold;
+        text-decoration: none;;
+        background-color: blue;
+    }
+    /*<div class="stickyStart">
+<div class="z2 fixed pos-right aos-init aos-animate" data-aos="fade-left" data-aos-anchor=".swiperHomeBanner" data-aos-anchor-placement="center-center" data-aos-mirror="false" style="top: 56%; transform: rotate(90deg); transform-origin: top right;" data-attribute="aiStickyStart">
+  <a class="small bg-blue-light text-white py-half px3 block" title="CONTACT US" data-open="homepageStickyButton" style="border-radius: 0 0 0.5rem 0.5rem; margin-bottom: calc(100vh - 100vh);" aria-controls="homepageStickyButton" aria-haspopup="true" tabindex="0" rel="noopener noreferrer" new-data-attribute="CONTACT US">CONTACT US </a>
+</div>
+</div>
