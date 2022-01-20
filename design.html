@@ -1,0 +1,112 @@
+<html>
+    <style>
+        table{
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width:100%;
+        }
+        td, th{
+            border: 1px solid #cccccc;
+            padding: 8px;
+        }
+        th{
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        tr:nth-child(even){
+            background-color: #dddddd;
+        }
+        tr:hover{
+            background-color: black;
+            color: white;
+        }
+    </style>
+    <script>
+        let sortDirection = false;
+        let Dep1 = [
+                {
+                    name:'Dep1aaaaaaa',
+                    age: 22,
+                    salary: 8000
+                },
+                {
+                    name: 'Dep1bbbbbb',
+                    age: 23,
+                    salary: 6000
+                }, 
+                {
+                    name: 'Dep2Dep1ccccccc',
+                    age: 25,
+                    salary: 9000
+                },
+                 {
+                    name: 'Dep1dddddddd',
+                    age: 25,
+                    salary: 9000
+                },
+            ];
+            let Dep2=
+            [
+                {
+                    name:'Dep2aaaaaaa',
+                    age: 28,
+                    salary: 12000
+                },
+                 {
+                    name: 'Dep2bbbbbb',
+                    age: 22,
+                    salary: 6000
+                }, {
+                    name: 'Dep2ccccccc',
+                    age: 26,
+                    salary: 10500
+                },
+                 {
+                    name: 'Dep2dddddddd',
+                    age: 28,
+                    salary: 10000
+                },
+                 {
+                    name: 'Dep2eeeeeee',
+                    age: 20,
+                    salary: 6000
+                },
+            ];
+            let personData = [...Dep1, ...Dep2]
+
+            window.onload = () =>{
+                loadTableData(personData);
+            }
+
+            function loadTableData(personData){
+                const tableBody = document.getElementById('tableData');
+                let dataHtml = '';
+
+                for(let person of personData){
+                    if(person['age']>22){
+                    dataHtml += `<tr>
+                        <td>${person.name}</td>
+                        <td>${person.age}</td>
+                        <td>${person.salary}</td>
+                        </tr>`;
+                    }
+                }
+                console.log(dataHtml)
+
+                tableBody.innerHTML = dataHtml;
+            }
+            
+    </script>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tbody id="tableData"></tbody>
+        </table>
+    </body>
+</html>
