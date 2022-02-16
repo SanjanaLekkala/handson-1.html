@@ -1,149 +1,125 @@
-import * as React from "react";
-import Grid from "@mui/material/Grid";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Delete from "@mui/icons-material/DeleteSharp";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import React from 'react';
+import './App.css';
+import Draggable from "react-draggable";
+import './style.css';
 
-export default function App() {
-  const TODOS = "http://localhost:8000/todos/";
-  const [todo, setTodo] = React.useState("");
-  const [temp, setTemp] = React.useState([]);
-  React.useEffect(() => {
-    fetch(TODOS)
-      .then((res) => res.json())
-      .then((data) => {
-        setTemp(data);
-        console.log(data);
-      });
-  }, []);
-
-  const handleChange = (e) => {
-    setTodo(e.target.value);
-  };
-  const handleClick = (e) => {
-    const newTodo = [...temp, { text: todo, done: false }];
-
-    fetch(TODOS, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeDrags: 0,
+      deltaPosition: {
+        x: 0,
+        y: 0
       },
-      body: JSON.stringify({ text: todo, done: false }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-    setTemp(newTodo);
-  };
-  const todoDelete = (e, id) => {
-    const Todos = [...temp];
-    const newTodos = Todos.filter((data) => data.id !== id);
-    fetch(TODOS + id, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+      controlledPosition: {
+        x: -400,
+        y: 200
+      }
+    };
+    this.handleDrag = this.handleDrag.bind(this);
+    this.onStart = this.onStart.bind(this);
+    this.onStop = this.onStop.bind(this);
+    this.adjustXPos = this.adjustXPos.bind(this);
+    this.adjustYPos = this.adjustYPos.bind(this);
+    this.onControlledDrag = this.onControlledDrag.bind(this);
+    this.onControlledDragStop = this.onControlledDragStop.bind(this);
+  }
 
-    setTemp(newTodos);
-  };
-  const todoDone = (e, value) => {
-    const doneObject = { id: value.id, text: value.text, done: true };
-    const newTodo = temp.map((item) => {
-      return item.id === value.id ? doneObject : item;
+  handleDrag(e, ui) {
+    const { x, y } = this.state.deltaPosition;
+    this.setState({
+      deltaPosition: {
+        x: x + ui.deltaX,
+        y: y + ui.deltaY
+      }
     });
-    setTemp(newTodo);
+  }
 
-    fetch(TODOS + value.id, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ done: true }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-  };
+  onStart() {
+    this.setState({ activeDrags: ++this.state.activeDrags });
+  }
 
-  const todoText = "TODO";
+  onStop() {
+    this.setState({ activeDrags: --this.state.activeDrags });
+  }
+  // For controlled component
+  adjustXPos(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const { x, y } = this.state.controlledPosition;
+    this.setState({ controlledPosition: { x: x - 10, y } });
+  }
 
-  const customList = (items, text) => (
-    <Paper
-      sx={{ width: 200, height: 300, overflow: "auto", marginTop: "3rem" }}
-    >
-      <TextField
-        disabled
-        id="filled-disabled"
-        label=""
-        defaultValue={text}
-        variant="filled"
-      />
-      <List dense component="div" role="list">
-        {items.map((value) => {
-          const labelId = `transfer-list-item-${value}-label`;
+  adjustYPos(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const { controlledPosition } = this.state;
+    const { x, y } = controlledPosition;
+    this.setState({ controlledPosition: { x, y: y - 10 } });
+  }
 
-          return (
-            <ListItem key={value} role="listitem" button>
-              <ListItemText
-                sx={value.done ? { textDecoration: "line-through" } : {}}
-                id={labelId}
-                primary={`${value.text}`}
-              />
-              <CheckCircleIcon onClick={(e) => todoDone(e, value)} />
-              <Delete onClick={(e) => todoDelete(e, value.id)} />
-            </ListItem>
-          );
-        })}
-        <ListItem />
-      </List>
-    </Paper>
-  );
+  onControlledDrag(e, position) {
+    const { x, y } = position;
+    this.setState({ controlledPosition: { x, y } });
+  }
 
-  return (
-    <>
-      <Grid container spacing={2} justifyContent="center" alignItems="center">
-        <Box
-          sx={{
-            width: 500,
-            maxWidth: "100%",
-            marginTop: "3rem",
+  onControlledDragStop(e, position) {
+    this.onControlledDrag(e, position);
+    this.onStop();
+  }
+  render() {
+    const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
+    const { deltaPosition, controlledPosition } = this.state;
+    return (
+      <div>
+        
+        <Draggable {...dragHandlers}>
+          <div className="box">I can be dragged anywhere</div>
+        </Draggable>
+        <Draggable axis="x" {...dragHandlers}>
+          <div className="box cursor-x">
+            I can only be dragged horizonally (x axis)
+          </div>
+        </Draggable>
+         <Draggable bounds="parent" {...dragHandlers} >
+         <div
+          className="box"
+          style={{
+            // height: "500px",
+            // width: "500px",
+            position: "relative",
+            overflow: "auto",
+            padding: "0"
           }}
         >
-          <TextField
-            fullWidth
-            label="Enter Todo"
-            id="fullWidth"
-            value={todo}
-            onChange={(e) => handleChange(e)}
-          />
-        </Box>
-        <Button
-          variant="contained"
-          color="success"
-          onClick={(e) => handleClick(e)}
-          sx={{
-            marginTop: "3rem",
-            marginLeft: "3rem",
-          }}
-        >
-          Add Todo
-        </Button>
-      </Grid>
-
-      <Grid container spacing={2} justifyContent="center" alignItems="center">
-        <Grid item>{customList(temp, todoText)}</Grid>
-        <Grid item></Grid>
-      </Grid>
-    </>
-  );
+          <div style={{ height: "100px", width: "185px", padding: "10px" }}>
+           
+            <div >
+            <strong className="no-cursor">Drag here</strong>
+            <div style={{background:"yellow"}}>I have a long scrollable content with a handle 
+            <br/>
+            x<br/>
+            x<br/>
+            x<br/>
+            x<br/>
+            x<br/>
+            x<br/>
+            </div>
+          </div>
+          </div>
+        </div>
+        </Draggable>
+        
+         <Draggable cancel="strong" {...dragHandlers}>
+          <div className="box">
+            <strong className="no-cursor">Can't drag here</strong>
+            <div style={{marginTop:"10px"}}>Dragging here works</div>
+          </div>
+        </Draggable>
+      </div>
+    );
+  }
 }
+
+export default App;
