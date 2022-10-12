@@ -1,0 +1,17 @@
+# POST http://localhost:4000/app/signup
+# Content-Type: application/json
+
+# {
+#     "username":"Nick",
+#     "email":"nick@gmail.com",
+#     "phone": 1234569870
+# }
+
+POST http://localhost:4000/patients
+Content-Type: application/json
+
+{
+    "username":"Leo",
+    "email":"leo@gmail.com",
+    "phone":1234567890
+}
