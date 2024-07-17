@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        margin:0;
+        padding:0;
+        box-sizing: border-box;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        background-color: lavender;
+
+    }
+    h2{
+        margin-top: calc(100% - 20%);
+    }
+    #calac{
+        padding: 10px;
+        width:auto;
+        background-color: black;
+        margin-top:20px;
+        border-radius: 20px;
+       
+    }
+    button{
+        padding:18px;
+        margin: auto;
+        border-radius: 50%;
+        font-size: larger;
+        font-weight: bolder;
+       
+    }
+    button:hover{
+        color:black;
+        background-color: rgb(164, 164, 255);
+        box-shadow: 0px 0px 18px  lavenderblush;
+        
+    }
+    #clr{
+        background-color:rgb(249, 97, 97);
+    }
+    #result{
+        border-radius: 10px;
+        padding: 10px 0px;
+    }
+    #result:hover{
+        box-shadow: 0 0 20px lavender;
+      
+    }
+ 
+    
+</style>
+<body>
+    <h2><marquee> *** CALCULATOR *** </marquee> </h2>
+
+    <div id="calac">
+        <div>
+            <input id="result" type="text">
+            <button id="clr" onclick="reset()">C</button>
+        </div>
+        <div>
+            <button onclick="display(1)">1</button>
+            <button onclick="display(2)">2</button>
+            <button onclick="display(3)">3</button>
+            <button onclick="display(4)">4</button>
+        </div>
+         <div>
+            <button onclick="display(5)">5</button>
+            <button onclick="display(6)">6</button>
+            <button onclick="display(7)">7</button>
+            <button onclick="display(8)">8</button>
+        </div>
+         <div>
+            <button onclick="display(9)">9</button>
+            <button onclick="display(0)">0</button>
+            <button onclick="display('+')">+</button>
+            <button onclick="display('-')">-</button>
+        </div>
+         <div>
+            <button onclick="display('*')">*</button>
+            <button onclick="display('/')">/</button>
+            <button onclick="display('.')">.</button>
+            <button onclick="calculate()">=</button>      
+        </div>
+    </div>
+
+
+
+    <script>
+        var result=document.getElementById("result");
+        result.style.fontWeight='bold';
+
+        function display(input){
+            // result.value=result.value+input;
+            result.value+=input;
+        }
+        function calculate(){
+            result.value = eval(result.value);
+
+        }
+        function reset(){
+            result.value=" ";   
+        }
+    </script>
+</body>
+</html>
